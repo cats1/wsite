@@ -11,12 +11,12 @@ const config = {
 		filename: '[name].js', //多个入口文件
 		//filename: "[hash].js", // 用于长效缓存
 		//filename: "[chunkhash].js", // 用于长效缓存
-		path: path.resolve(__dirname, 'dist'),
-		publicPath: '/assets/',
+		path: path.resolve(__dirname, 'dist')
+		//publicPath: '/assets/',
 		//library: 'Zoo',
 		//libraryTarget: 'amd',
-		chunkFilename: '[chunkhash].js',
-		pathinfo: true
+		//chunkFilename: '[chunkhash].js',
+		//pathinfo: true
 	},
 	plugins: [
 	   new cleanwebpackplugin(['dist']),
