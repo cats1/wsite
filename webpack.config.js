@@ -1,33 +1,41 @@
 const path = require('path')
 const htmlwebpackplugin = require('html-webpack-plugin')
 const cleanwebpackplugin = require('clean-webpack-plugin')
+const webpack = require('webpack')
 const config = {
-    // 入口文件// 这里应用程序开始执行
-    entry: './app/app.js',
-    // 出口文件// webpack 如何输出结果的相关选项
-    output: {
-        // 「入口分块(entry chunk)」的文件名模板（出口分块？）
-        //filename: 'bundle.js', //单个入口
-        filename: '[name].js', //多个入口文件
-        //filename: "[hash].js", // 用于长效缓存
-        //filename: "[chunkhash].js", // 用于长效缓存
-        path: path.resolve(__dirname, 'dist')
-        //publicPath: '/assets/',
-        //library: 'Zoo',
-        //libraryTarget: 'amd',
-        //chunkFilename: '[chunkhash].js',
-        //pathinfo: true
-    },
-    plugins: [
+	entry: ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000','./app/index.js'],
+	output: {
+		filename: 'bundle.js',
+		path: path.resolve(__dirname, 'dist'),
+		publicPath: '/'
+	},
+	devtool: 'inline-source-map',
+	module: {
+      rules: [{
+      	test: /\.css$/,
+      	use: ['style-loader','css-loader']
+      },{
+        test: /\.js/,
+        //include:[path.resolve(__dirname,'app')],
+        loader: 'babel-loader',
+        options: {
+          presets: ['latest']
+        }
+      }]
+	},
+	plugins: [
+	    new webpack.optimize.UglifyJsPlugin(),
         new cleanwebpackplugin(['dist']),
         new htmlwebpackplugin({
             title: 'haha'
-        })
+        }),
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+        //new webpack.NoErrorsPlugin()
     ],
     devServer: {
-        contentBase: path.join(__dirname, "app"),
-        compress: true,
-        port: 9000
+    	contentBase: './dist',
+    	hot: true
     }
 }
 module.exports = config

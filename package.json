@@ -4,8 +4,12 @@
   "description": "homepage",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --open",
+    "start": "node dev-server.js",
+    "prebuild": "echo before build",
     "build": "webpack",
+    "postbuild": "echo after build",
+    "watch": "webpack --watch",
+    "server": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,11 +23,19 @@
   },
   "homepage": "https://github.com/cats1/wsite#readme",
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-latest": "^6.24.1",
     "clean-webpack-plugin": "^0.1.17",
+    "css-loader": "^0.28.7",
     "express": "^4.16.2",
+    "file-loader": "^1.1.6",
     "html-webpack-plugin": "^2.30.1",
+    "style-loader": "^0.19.1",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.7"
+    "webpack-dev-middleware": "^2.0.2",
+    "webpack-dev-server": "^2.9.7",
+    "webpack-hot-middleware": "^2.21.0"
   },
   "dependencies": {
     "avalon2": "^2.2.9"
